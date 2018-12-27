@@ -15,31 +15,27 @@ import CarPage from './Car';
 import MyPage from './My';
 
 
-var Dimensions = require('Dimensions');
-var {width,height} = Dimensions.get('window');
-
 type Props = {};
+var navigatorTitle='HH';
 
-
-export default class MyTabBar extends Component {
- render() {
-  return (
-   <NavigatorIOS
-    initialRoute={{
-     component: MyTabBarApp,
-     title: 'Home',
-    }}
-    style={{flex: 1}}
-   />
-  );
- }
-}
-class MyTabBarApp extends Component<Props> {
+// export default class MyTabBar extends Component {
+//  render() {
+//   return (
+//    <NavigatorIOS
+//     initialRoute={{
+//      component: MyTabBarApp,
+//      title: navigatorTitle,
+//     }}
+//     style={{flex: 1}}
+//    />
+//   );
+//  }
+// }
+export default class MyTabBarApp extends Component<Props> {
  constructor(props){
    super(props);
    this.state={
      selectedBarItem:'home',
-     navigatorTitle:'H'
    }
  }
 
@@ -54,28 +50,28 @@ class MyTabBarApp extends Component<Props> {
                        title='首页'
                        icon={{uri:'home'}}
                        selected={this.state.selectedBarItem==='home'}
-                       onPress={()=>{this.setState({selectedBarItem:'home',navigatorTitle:'h-t'})}}>
+                       onPress={()=>{this.setState({selectedBarItem:'home'});navigatorTitle='hhh';}}>
         <HomePage></HomePage>
        </TabBarIOS.Item>
        <TabBarIOS.Item
                        title='分类'
                        icon={{uri:'cat'}}
                        selected={this.state.selectedBarItem==='cate'}
-                       onPress={()=>{this.setState({selectedBarItem:'cate',navigatorTitle:'Cate'})}}>
+                       onPress={()=>{this.setState({selectedBarItem:'cate'});navigatorTitle='cate';}}>
        <CatePage></CatePage>
        </TabBarIOS.Item>
        <TabBarIOS.Item
                        title='购物车'
                        icon={{uri:'car'}}
                        selected={this.state.selectedBarItem==='car'}
-                       onPress={()=>{this.setState({selectedBarItem:'car',navigatorTitle:'Car'})}}>
+                       onPress={()=>{this.setState({selectedBarItem:'car'});navigatorTitle='Car';}}>
         <CarPage></CarPage>
        </TabBarIOS.Item>
        <TabBarIOS.Item
                        title='我的'
                        icon={{uri:'my'}}
                        selected={this.state.selectedBarItem==='my'}
-                       onPress={()=>{this.setState({selectedBarItem:'my',navigatorTitle:'My'})}}>
+                       onPress={()=>{this.setState({selectedBarItem:'my'});navigatorTitle='My';}}>
         <MyPage></MyPage>
        </TabBarIOS.Item>
       </TabBarIOS>

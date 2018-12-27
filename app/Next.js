@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TabBarIOS} from 'react-native';
+import {Platform, StyleSheet, Text, View, TabBarIOS, TouchableOpacity} from 'react-native';
 
 type Props = {};
 export default class NextPage extends Component<Props> {
@@ -16,6 +16,13 @@ export default class NextPage extends Component<Props> {
     return (
       <View style={styles.viewStyle}>
        <Text>Home =========> Next page!!!!</Text>
+       <TouchableOpacity onPress={()=>{
+         this.props.router.callBack('I am back from next!!!!!');
+         this.props.navigator.pop();
+         
+         }}>
+       <Text style={{backgroundColor:'red'}}>back</Text>
+        </TouchableOpacity>
       </View>
     );
   }

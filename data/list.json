@@ -1,0 +1,29 @@
+{
+  "list":[
+    {
+      "id":"3419",
+      "pic":"https://facebook.github.io/react/img/logo_og.png",
+      "title":"米米的美淘杂货铺"
+    },
+    {
+      "id":"3426",
+      "pic":"https://facebook.github.io/react/img/logo_og.png",
+      "title":"纽约时尚潮鞋总代理"
+    },
+    {
+      "id":"3411",
+      "pic":"./images/timg.png",
+      "title":"大大"
+    },
+    {
+      "id":"1502",
+      "pic":"./images/timg.png",
+      "title":"汤圆的小店"
+    },
+    {
+      "id":"1530",
+      "pic":"./images/timg.png",
+      "title":"哈哈哈哈"
+    }
+  ]
+}
