@@ -7,77 +7,69 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TabBarIOS, NavigatorIOS} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import  TabNavigator from 'react-native-tab-navigator';
 
-import HomePage from './Home';
+import HomePage from './home/Home';
 import CatePage from './Cat';
 import CarPage from './Car';
-import MyPage from './My';
+import MyPage from './my/My';
+// import HomePage from './HomeMain';
 
-
+const dataSource = [
+                    {tabIconUri:'home',icon:require('../image/tab/home.png'),selectedIcon:require('../image/tab/home.png'),tabPage:'home',tabName:'首页',component:HomePage},
+                    {tabIconUri:'cat',icon:require('../image/tab/cat.png'),selectedIcon:require('../image/tab/cat.png'),tabPage:'cate',tabName:'分类',component:CatePage},
+                    {tabIconUri:'car',icon:require('../image/tab/car.png'),selectedIcon:require('../image/tab/car_s.png'),tabPage:'car',tabName:'购物车',component:CarPage},
+                    {tabIconUri:'my',icon:require('../image/tab/my.png'),selectedIcon:require('../image/tab/my.png'),tabPage:'my',tabName:'我的',component:MyPage}
+                 ];
 type Props = {};
-var navigatorTitle='HH';
-
-// export default class MyTabBar extends Component {
-//  render() {
-//   return (
-//    <NavigatorIOS
-//     initialRoute={{
-//      component: MyTabBarApp,
-//      title: navigatorTitle,
-//     }}
-//     style={{flex: 1}}
-//    />
-//   );
-//  }
-// }
+var navigation = null;
 export default class MyTabBarApp extends Component<Props> {
+
  constructor(props){
    super(props);
+   navigation = this.props.navigation;
    this.state={
      selectedBarItem:'home',
    }
  }
 
   render() {
+    let tabViews = dataSource.map((item,i) => {
+      return ( <TabNavigator.Item key={i}
+                               title={item.tabName}
+                               titleStyle={{color:'black'}}
+                               selectedTitleStyle={{color:'#7A16BD'}}
+                               renderIcon={()=><Image style={styles.tabIcon} source={item.icon}/>}
+                               renderSelectedIcon = {() => <Image style={styles.tabIcon} source={item.selectedIcon}/>}
+                               selected={this.state.selectedBarItem===item.tabPage}
+                               tabStyle={{alignSelf:'center'}}
+                               onPress = {() => {this.setState({selectedBarItem:item.tabPage})}}>
+                <item.component navigation={navigation}/>
+               </TabNavigator.Item>
+      )
+    });
     return (
-      <TabBarIOS style={{backgroundColor:'yellow'}}
-                 barTintColor="white"
-                 tintColor='green'
-                 unselectedItemTintColor='gray'
-                 translucent={false}>
-       <TabBarIOS.Item
-                       title='首页'
-                       icon={{uri:'home'}}
-                       selected={this.state.selectedBarItem==='home'}
-                       onPress={()=>{this.setState({selectedBarItem:'home'});navigatorTitle='hhh';}}>
-        <HomePage></HomePage>
-       </TabBarIOS.Item>
-       <TabBarIOS.Item
-                       title='分类'
-                       icon={{uri:'cat'}}
-                       selected={this.state.selectedBarItem==='cate'}
-                       onPress={()=>{this.setState({selectedBarItem:'cate'});navigatorTitle='cate';}}>
-       <CatePage></CatePage>
-       </TabBarIOS.Item>
-       <TabBarIOS.Item
-                       title='购物车'
-                       icon={{uri:'car'}}
-                       selected={this.state.selectedBarItem==='car'}
-                       onPress={()=>{this.setState({selectedBarItem:'car'});navigatorTitle='Car';}}>
-        <CarPage></CarPage>
-       </TabBarIOS.Item>
-       <TabBarIOS.Item
-                       title='我的'
-                       icon={{uri:'my'}}
-                       selected={this.state.selectedBarItem==='my'}
-                       onPress={()=>{this.setState({selectedBarItem:'my'});navigatorTitle='My';}}>
-        <MyPage></MyPage>
-       </TabBarIOS.Item>
-      </TabBarIOS>
+      // <View style={styles.container}>
+      <TabNavigator hidesTabTouch={false}
+                    barTintColor="white"
+                    tintColor='green'
+                    unselectedItemTintColor='gray'
+                    translucent={false}>
+        {tabViews}
+        </TabNavigator>
+        // </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  tabIcon:{
+    width:23,
+    height:23
+  }
 });
