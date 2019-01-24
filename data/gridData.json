@@ -1,0 +1,32 @@
+{
+  "list":[
+      {
+        "id":"11",
+        "title": "坚果大礼包",
+        "price": "100",
+        "describe":"立减优惠",
+        "uri":"img5"
+      },
+      {
+        "id":"12",
+        "title": "美妆盛典",
+        "price": "49",
+        "describe":"领200元券",
+        "uri":"img2"
+      },
+      {
+        "id":"13",
+        "title": "精品母婴",
+        "price": "4524",
+        "describe":"满300减100",
+        "uri":"img3"
+      },
+      {
+        "id":"14",
+        "title": "品质家居",
+        "price": "547",
+        "describe":"假期大放送",
+        "uri":"img6"
+      }
+  ]
+}

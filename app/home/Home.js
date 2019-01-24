@@ -8,113 +8,149 @@ import {
     TouchableOpacity,
     ScrollView,
     Dimensions,
+    ImageBackground,
+    FlatList,
+    Alert
 } from 'react-native';
 import ScrollableTabView, {DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
 
-import CommonHead from '../components/commonHead';
-import Recommend from './recommend';
-import Otherpage from './otherpage';
+import {showImagePicker} from '../common/Camera'
+
+import {ifIphoneX} from '../common/AdapterPhone';
+import CateButtonCell from '../cell/CateButton';
+import BannerCell from './Banner';
+import HomeNav from './HomeNav';
+import WebViewPage from './WebViewPage';
+import HomeList from './HomeList';
+import GridViewCell from '../cell/GridViewCell';
+
 
 const { width, height } = Dimensions.get('window');
 
-export default class home extends Component {
+export default class HomePageApp extends Component {
+
+  static navigationOptions = {
+      header:null
+    }
 
     constructor(props) {
         super(props);
+        let dataAry=require('../../data/cate.json');
+        let cate=require('../../data/nineArea.json');
+        let products=require('../../data/gridData.json');
+
         this.state = {
-            tabShow: false,
-            label: ['美食', '服饰', '美妆', '母婴', '儿童', '洗护', '配饰', '美食', '美妆', '电器', '居家'],
+            cate:cate.list,
+            label: dataAry.list,
+            gridDatas:products.list,
+            avatarSource:require('../../image/home/camera.png'),
         };
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                tabShow: true
-            });
-        }, 0)
     }
 
-    renderLeftItem() {
-        return (
-            // <TouchableOpacity onPress={() => { this.props.navigation.navigate('Search') }} style={styles.navLeft}>
-            <TouchableOpacity onPress={() => { }} style={styles.navLeft}>
-                <Image source={require('../../image/img/img6.png')} style={styles.navIcon} />
-                <Text style={styles.navText}>扫一扫</Text>
-            </TouchableOpacity>
-        )
+    renderNineArea(){
+      return (
+        <View style={styles.nineArea}>
+        <FlatList
+            data={this.state.cate}
+            keyExtractor={(item, index) => index}
+            renderItem={this.renderNineItem}
+            numColumns={5}
+        />
+        </View>
+
+      )
+    }
+    pressCate(item){
+      this.gotToNext(item.title)
     }
 
-    renderTitleItem() {
-        return (
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Search') }}>
-                <View style={styles.searchBox}>
-                    <Image source={require('../../image/img/img9.png')} style={styles.searchIcon} />
-                    <Text style={styles.searchContent}>搜索商品, 共10161款好物</Text>
-                </View>
-            </TouchableOpacity>
-        )
-    }
-    // 头部右侧
-    renderRightItem() {
-        return (
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('MessageCenter') }} style={styles.navRight}>
-                <Image source={require('../../image/img/img1.png')} style={styles.navIcon} />
-                <Text style={styles.navText}>消息</Text>
-            </TouchableOpacity>
-        )
+    pressAd(text){
+      this.props.navigation.navigate('Web', {title:text});
     }
 
-    // 滑动tab
-    renderScrollableTab() {
-        let label = this.state.label
-        if (this.state.tabShow){
-            return (
-                <ScrollableTabView
-                    style={{paddingTop: 8}}
-                    renderTabBar={() =>
-                        <ScrollableTabBar
-                            style={{height:35}}
-                            tabStyle={{height:34,paddingLeft: 15,paddingRight: 15,}}
-                        />
-                    }
-                    tabBarBackgroundColor='#fff'
-                    tabBarActiveTextColor='#b4282d'
-                    tabBarInactiveTextColor='#333'
-                    tabBarUnderlineStyle={styles.tabBarUnderline}
-                >
-                    {
-                        label.map((item, index) => {
-                            if (item == '美食') {
-                                return (
-                                    <ScrollView tabLabel={item} key={index}>
-                                        <Recommend/>
-                                    </ScrollView>
-                                )
-                            } else {
-                                return (
-                                    <Otherpage tabLabel={item} key={index} />
-                                )
-                            }
-                        })
-                    }
-                </ScrollableTabView>
-            )
-        }
+    renderNineItem = ({ item }) => {
+      return(
+        <CateButtonCell
+            image={item.uri}
+            title={item.title}
+            id={item.id}
+            handle={() => this.pressCate(item)}
+        />
+      )
+    }
+    renderActivity(){
+      return (
+        <View style={styles.activityView}>
+        <TouchableOpacity onPress={()=>{this.gotToNext('活动')}}>
+        <Image source={require('../../image/home/go.png')} style={styles.activityImg} />
+        </TouchableOpacity>
+        </View>
+      )
+    }
+    goToDetail(item){
+      this.props.navigation.navigate('Detail',{title:item.title});
+    }
+    renderGridView(){
+      return (
+        <View style={styles.gridView}>
+        <FlatList
+            data={this.state.gridDatas}
+            keyExtractor={(item, index) => index}
+            renderItem={this.renderGridViewCell}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+        />
+        </View>
+      )
+    }
+
+    renderGridViewCell = ({item}) => {
+      return (
+        <GridViewCell
+            image={item.uri}
+            title={item.title}
+            dec={item.describe}
+            handler={() => this.goToDetail(item)}
+        />
+      )
+    }
+
+    gotToNext(text){
+      // const { navigate } = this.props.navigation;
+      // navigate('Next');
+      this.props.navigation.navigate('List', {title:text});
+    }
+
+    cameraAction(){
+      // showImagePicker((source)=>{
+      //   this.setState({
+      //     avatarSource:source
+      //   })
+      // })
     }
 
     render() {
         return (
+          <ImageBackground
+                style={{ flex: 1 }}
+                source={require('../../image/home/bg.png')}
+          >
             <View style={styles.container}>
-                <CommonHead
-                    leftItem={() => this.renderLeftItem()}
-                    titleItem={() => this.renderTitleItem()}
-                    rightItem={() => this.renderRightItem()}
-                />
-                <View style={{ flex: 1 }}>
-                    {this.renderScrollableTab()}
-                </View>
+              <HomeNav
+                   searchAction={()=>this.props.navigation.navigate('Search')}
+                   cameraAction={()=>this.cameraAction()}
+              />
+              <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+                <BannerCell handler={()=>this.props.navigation.navigate('Web',{title:'Web'})}/>
+                {this.renderActivity()}
+                {this.renderNineArea()}
+                {this.renderGridView()}
+              </ScrollView>
             </View>
+          </ImageBackground>
         );
     }
 }
@@ -122,45 +158,53 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#fff',
+        ...ifIphoneX({
+            marginTop: 44,
+        }, {
+            marginTop: 20,
+        })
     },
-    navLeft: {
+    activityView:{
+      flex:1,
+      width:width,
+      height:60,
+      alignItems:'center',
+    },
+    activityButton:{
+      flex:1,
+      marginLeft:20,
+      width:width*0.4,
+      height:60,
+    },
+    activityImg:{
+      flex:1,
+      width:width*0.4,
+      resizeMode:'contain',
+    },
+    nineArea:{
+      width: width-20,
+      height: 240,
+      marginTop:10,
+      marginBottom:10,
+      marginLeft:10,
+      borderRadius:10,
+      backgroundColor: 'white',
+    },
+    gridView:{
+      width: width-20,
+      height: 168,
+      marginTop:10,
+      marginBottom:10,
+      marginLeft:10,
+      borderRadius:10,
+      backgroundColor: 'white',
+    },
+    bannerImg: {
+        // flex:1,
+        width: width,
+        height: 200,
         alignItems: 'center',
-        marginLeft: 10,
+        justifyContent:'center',
+        backgroundColor: 'red',
     },
-    navRight: {
-        alignItems: 'center',
-        marginRight: 10,
-    },
-    navIcon: {
-        height: 20,
-        width: 20,
-    },
-    navText: {
-        fontSize: 10,
-    },
-    searchBox: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: width * 0.7,
-        backgroundColor: '#ededed',
-        borderRadius: 5,
-        height: 30,
-    },
-    searchIcon: {
-        width: 16,
-        height: 16,
-        marginRight: 6,
-    },
-    searchContent: {
-        color: '#666',
-        fontSize: 14,
-    },
-    tabBarUnderline: {
-        backgroundColor: '#b4282d',
-        height: 2,
-        width:width/8,
-        marginLeft:6
-    }
 });

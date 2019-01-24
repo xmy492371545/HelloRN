@@ -33,7 +33,7 @@ export default class commonNavBar extends Component {
         return (
             <View style={[{width:width,
                 height:40,
-                backgroundColor: this.props.navBarColor || '#fff',//背景色，默认白色
+                backgroundColor: this.props.navBarColor,//背景色，默认白色
                 flexDirection:'row',//横向排
                 justifyContent:'space-between',//主轴对齐方式
                 alignItems: 'center',//次轴对齐方式（上下居中）

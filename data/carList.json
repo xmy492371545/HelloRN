@@ -1,0 +1,91 @@
+{
+  "list":[
+    {
+      "id":"100",
+      "selected":true,
+      "shopName":"小星星小星星小星星店铺",
+      "shopImage":"img1",
+      "proList":[
+        {
+          "id":"11",
+          "selected":false,
+          "title": "吃货11 吃货吃货吃货吃货吃货吃货",
+          "price": "100",
+          "describe":"吃货集合",
+          "uri":"img5",
+          "number":"2"
+        },
+        {
+          "id":"12",
+          "selected":true,
+          "title": "吃货22吃货吃货吃货吃货吃货",
+          "price": "49",
+          "describe":"吃货集合",
+          "uri":"img2",
+          "number":"3"
+        }
+      ]
+    },
+    {
+      "id":"200",
+      "selected":false,
+      "shopName":"东阿万佛湖我才能到家",
+      "shopImage":"img2",
+      "proList":[
+        {
+          "id":"21",
+          "selected":false,
+          "title": "网红大礼包超大巨型小吃休闲食品零食散装食品",
+          "price": "120",
+          "describe":"吃货集合",
+          "uri":"img5",
+          "number":"2"
+        },
+        {
+          "id":"22",
+          "selected":false,
+          "title": "休闲食品粮食大集合大礼包组合整箱",
+          "price": "149",
+          "describe":"吃货集合",
+          "uri":"img2",
+          "number":"3"
+        },
+        {
+          "id":"32",
+          "selected":true,
+          "title": "坚果核桃碧根果腰果",
+          "price": "149",
+          "describe":"吃货集合",
+          "uri":"img3",
+          "number":"3"
+        },
+        {
+          "id":"42",
+          "selected":true,
+          "title": "果海鲜间谍哦我发货日发货货吃货吃货",
+          "price": "149",
+          "describe":"吃货集合",
+          "uri":"img4",
+          "number":"3"
+        }
+      ]
+    },
+    {
+      "id":"300",
+      "selected":false,
+      "shopName":"店铺三",
+      "shopImage":"img3",
+      "proList":[
+        {
+          "id":"35",
+          "selected":false,
+          "title": "海鲜大餐鱼虾蟹鲍鱼三文鱼深海鱼核武器粉红啊从不拿到了剧场版我",
+          "price": "453",
+          "describe":"吃货集合",
+          "uri":"img4",
+          "number":"6"
+        }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,11 @@ import {
 
 //引用插件
 import Swiper from 'react-native-swiper';
+import ProductButtonCell from '../cell/ProductButton';
+
+import CateButtonCell from '../cell/CateButton';
+import BannerCell from './Banner';
+
 
 // 取得屏幕的宽高Dimensions
 const { width, height } = Dimensions.get('window');
@@ -20,8 +25,12 @@ export default class recommend extends Component {
 
     constructor(props) {
         super(props);
+        let products=require('../../data/products.json');
+        let cate=require('../../data/nineArea.json');
+
         this.state = {
             swiperShow: true,
+            cate:cate.list,
             tips: ['XXXX食品店', '7天无理由退货', '正品保证'],
             topic: [
                 {
@@ -62,35 +71,7 @@ export default class recommend extends Component {
         // }, 0)
     }
 
-    // banner
-    renderBanner() {
-        if (this.state.swiperShow) {
-            return (
-                <Swiper
-                    style={styles.wrapper}
-                    height={width * 40 / 75}
-                    showsButtons={false}
-                    autoplay={true}
-                    loop={true}
-                    paginationStyle={styles.paginationStyle}
-                    dotStyle={styles.dotStyle}
-                    activeDotStyle={styles.activeDotStyle}
-                >
-                    <Image source={require('../../image/img/img1.png')} style={styles.bannerImg} />
-                    <Image source={require('../../image/img/img2.png')} style={styles.bannerImg} />
-                    <Image source={require('../../image/img/img3.png')} style={styles.bannerImg} />
-                    <Image source={require('../../image/img/img4.png')} style={styles.bannerImg} />
-                    <Image source={require('../../image/img/img3.png')} style={styles.bannerImg} />
-                </Swiper>
-            )
-        } else {
-            return (
-                <View style={{ height: width * 40 / 75 }}>
-                    <Image source={require('../../image/img/img1.png')} style={styles.bannerImg} />
-                </View>
-            );
-        }
-    }
+
 
      renderTips() {
         let tip = this.state.tips
@@ -107,6 +88,7 @@ export default class recommend extends Component {
             </View>
         )
     }
+
      // 一行3个
     renderThree(){
         return (
@@ -122,15 +104,15 @@ export default class recommend extends Component {
         )
     }
     renderThreeItem = ({ item }) => {
-        return (
-            <TouchableOpacity style={styles.specialItem}>
-                <Image source={item.uri} style={styles.specialImg} />
-                <View style={styles.specialContainer}>
-                    <Text style={styles.specialTitle} numberOfLines={2}>{item.title}</Text>
-                    <Text style={styles.specialPrice}>￥{item.price}</Text>
-                </View>
-            </TouchableOpacity>
-        )
+      return(
+        <ProductButtonCell
+            image={item.uri}
+            title={item.title}
+            id={item.id}
+            price={item.price}
+            isTwoOneLine={false}
+        />
+      )
     }
 
     // 横向flatList
@@ -178,62 +160,46 @@ export default class recommend extends Component {
         )
     }
     renderTwoItem = ({ item }) => {
-        return (
-            <TouchableOpacity style={styles.likeItem}>
-                <Image source={item.uri} style={styles.likeImg} />
-                <Text style={styles.likeDesc} numberOfLines={1}>{item.describe}</Text>
-                <View style={styles.likeContainer}>
-                    <Text style={styles.likeTitle} numberOfLines={2}>{item.title}</Text>
-                    <Text style={styles.likePrice}>￥{item.price}</Text>
-                </View>
-            </TouchableOpacity>
-        )
+      return(
+        <ProductButtonCell
+            image={item.uri}
+            title={item.title}
+            id={item.id}
+            price={item.price}
+            isTwoOneLine={true}
+        />
+      )
     }
 
     render() {
-        return (
-            <View style={styles.container}>
-                {this.renderBanner()}
-                {this.renderTips()}
-                {this.renderThree()}
-                {this.renderTopic()}
-                {this.renderTwo()}
-            </View>
-        );
+      return (
+          <View style={styles.container}>
+              {this.renderTips()}
+              {this.renderThree()}
+              {this.renderTopic()}
+              {this.renderTwo()}
+          </View>
+      );
+        // return (
+        //     <View style={styles.container}>
+        //         {this.renderBanner()}
+        //         {this.renderNineArea()}
+        //         {this.renderTips()}
+        //         {this.renderThree()}
+        //         {this.renderTopic()}
+        //         {this.renderTwo()}
+        //     </View>
+        // );
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#efefef',
     },
-    bannerImg: {
-        // flex:1,
-        width: width,
-        height: 200,
-        alignItems: 'center',
-        justifyContent:'center',
-        backgroundColor: 'red',
-    },
+  
     wrapper: {
         width: width,
-    },
-    paginationStyle: {
-        bottom: 6,
-    },
-    dotStyle: {
-        width: 22,
-        height: 3,
-        backgroundColor: '#fff',
-        opacity: 0.4,
-        borderRadius: 0,
-    },
-    activeDotStyle: {
-        width: 22,
-        height: 3,
-        backgroundColor: '#fff',
-        borderRadius: 0,
     },
     tips: {
         backgroundColor: '#fff',
