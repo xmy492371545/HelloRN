@@ -13,6 +13,7 @@ import {
     Alert
 } from 'react-native';
 import ScrollableTabView, {DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
+// import {PullView} from 'react-native-pull'
 
 import {showImagePicker} from '../common/Camera'
 

@@ -26,7 +26,9 @@ export default class CarPageApp extends Component<Props> {
       dataSource:dataAry.list,
     }
   }
-
+  goToDetail(item){
+    this.props.navigation.navigate('Detail',{title:item.title});
+  }
   renderItem = ({ item }) => {
     let proList = item.proList;
     let shopSelected = item.selected;
@@ -54,6 +56,7 @@ export default class CarPageApp extends Component<Props> {
                       image={proItem.uri}
                       price={proItem.price}
                       number={proItem.number.toString()}
+                      cellHandler={()=>this.goToDetail(proItem)}
                   />
               ))
           }

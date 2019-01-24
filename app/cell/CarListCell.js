@@ -37,6 +37,7 @@ export default class CarListCell extends Component {
         number: PropTypes.string,
         selected: PropTypes.bool,
         selectHandle:PropTypes.func,
+        cellHandler:PropTypes.func,
     };
     constructor(props){
       super(props);
@@ -64,6 +65,7 @@ export default class CarListCell extends Component {
               <Image source={this.state.select?require('../../image/common/select.png'):require('../../image/common/unselect.png')}
                      style={styles.select}/>
           </TouchableOpacity>
+          <TouchableOpacity onPress={this.props.cellHandler}>
           <ImageBackground
                 style={styles.proBg}
                 source={require('../../image/common/cellBg.png')}>
@@ -75,6 +77,7 @@ export default class CarListCell extends Component {
                 </View>
                 <Image source={{uri: 'car_s'}} style={styles.arrow}/>
           </ImageBackground>
+          </TouchableOpacity>
           </View>
         );
     }
