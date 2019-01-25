@@ -209,7 +209,7 @@ export default class DetailPage extends Component<Props> {
         ...ifIphoneX({
             marginTop: 24,
         }, {
-            marginTop: 0,
+            marginTop: 20,
         }),
         // left: 13,
         width:20,
