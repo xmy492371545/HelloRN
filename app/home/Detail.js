@@ -12,20 +12,25 @@ import {Platform,
   TouchableOpacity,
   Alert, Text, View,
   Dimensions, Image,Modal,
-  Animated, ScrollView} from 'react-native';
+  Animated, ScrollView,ImageBackground} from 'react-native';
 import BannerCell from './Banner';
 import ShareAlertDialog from './ShareAlertDialog'
+import {ifIphoneX} from '../common/AdapterPhone';
 
 type Props = {};
 const { width, height } = Dimensions.get('window');
 const List_View_Width=width;
 const Gray_Color='#F7F7F7';
+var item;
 export default class DetailPage extends Component<Props> {
 
   static navigationOptions = ({navigation}) => {
-    const title = navigation.state.params.title;
+    item=navigation.state.params;
+    const title = item.title;
+
     return {
-      headerTitle:title,
+      // headerTitle:title,
+      header:null
     }
   }
 
@@ -39,9 +44,9 @@ export default class DetailPage extends Component<Props> {
       };
     }
 
-    // onBackPress(e){
-    //   this.props.navigator.pop();
-    // }
+    backAction(){
+      this.props.navigation.goBack(null);
+    }
 
     shareAction(){
       // Alert.alert('分享');
@@ -71,7 +76,7 @@ export default class DetailPage extends Component<Props> {
             <Text style={{color:'gray',fontSize:14,textDecorationLine:'line-through'}} >专柜价:199</Text>
           </View>
           <View style={{flex:1,flexDirection: 'row', alignItems: 'center', marginTop:10}}>
-            <Text style={{color:'black',fontSize:16,width:List_View_Width-60,marginLeft:10}} numberOfLines={2} ellipsizeMode='tail'>零食大礼包假期大放送零食大礼包假期大放送零食大礼包假期大放送零食大礼包假期大放送零食大礼包假期大放送零食大礼包假期大放送零食大礼包假期大放送</Text>
+            <Text style={{color:'black',fontSize:16,width:List_View_Width-60,marginLeft:10}} numberOfLines={2} ellipsizeMode='tail'>{item.title}</Text>
             <TouchableOpacity onPress={()=>this.shareAction()}>
               <Image style={{width:20,height:20,resizeMode:'contain',marginLeft:10,marginRight:10}} source={require('../../image/common/share.png')}/>
             </TouchableOpacity>
@@ -162,12 +167,24 @@ export default class DetailPage extends Component<Props> {
 
     render() {
       return (
-        <ScrollView style={{ flex: 1, backgroundColor: 'white',}} showsVerticalScrollIndicator={false}>
+        <ImageBackground
+              style={{ flex: 1 }}
+              source={require('../../image/home/bg1.png')}
+        >
+        <View style={{flex:1}}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
          {this.renderImageView()}
          {this.renderPriceView()}
          {this.renderMiddleView()}
          {this.renderPingJia()}
         </ScrollView>
+        <TouchableOpacity  style={styles.backButton} activeOpacity={1} onPress={()=>this.backAction()}>
+        <View style={styles.backButton}>
+          <Image source={require('../../image/nav/back.png')} style={{flex:1,width:40,height:40}} />
+        </View>
+        </TouchableOpacity>
+        </View>
+        </ImageBackground>
       );
     }
   }
@@ -175,11 +192,28 @@ export default class DetailPage extends Component<Props> {
   const styles = StyleSheet.create({
       container: {
           flex: 1,
-          alignItems: 'center',
           backgroundColor: 'white',
+          ...ifIphoneX({
+              marginTop: 44,
+          }, {
+              marginTop: 20,
+          }),
       },
       commonStyle: {
           marginLeft: 10,
           marginRight:10,
+      },
+      backButton:{
+        position:'absolute',
+        marginLeft:13,
+        ...ifIphoneX({
+            marginTop: 24,
+        }, {
+            marginTop: 0,
+        }),
+        // left: 13,
+        width:20,
+        height:20,
+        resizeMode:'contain',
       }
   });

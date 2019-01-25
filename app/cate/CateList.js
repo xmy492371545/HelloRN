@@ -30,7 +30,6 @@ export default class recommend extends Component {
         this.state = {
             cate:cate.list,
             special:products.list,
-            tips: ['XXXX食品店', '7天无理由退货', '正品保证'],
             topic: [
                 {
                     id:'8',
@@ -103,23 +102,6 @@ export default class recommend extends Component {
     goToDetail(title){
       this.props.nav.navigate('Detail',{title:title});
     }
-
-     renderTips() {
-        let tip = this.state.tips
-        return (
-            <View style={styles.tips}>
-                {
-                    tip.map((item, index) => (
-                        <View style={styles.tipItemBox} key={index.toString()}>
-                            <Image source={require('../../image/img/img6.png')} style={styles.redyes} />
-                            <Text style={styles.tipItem}>{item}</Text>
-                        </View>
-                    ))
-                }
-            </View>
-        )
-    }
-
      // 一行3个
     renderThree(){
         return (
@@ -130,6 +112,7 @@ export default class recommend extends Component {
                     keyExtractor={(item, index) => index}
                     renderItem={this.renderThreeItem}
                     numColumns={3}
+                    refresh = {true}
                 />
             </View>
         )
@@ -235,11 +218,6 @@ const styles = StyleSheet.create({
     },
     tipItemBox: {
         flexDirection: 'row',
-    },
-    redyes: {
-        width: 16,
-        height: 16,
-        marginRight: 5,
     },
     tipItem: {
         fontSize: 14,

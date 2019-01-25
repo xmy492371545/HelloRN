@@ -12,6 +12,7 @@ import {ifIphoneX} from '../common/AdapterPhone';
 
 import CarListCell from '../cell/CarListCell';
 import CarHeadCell from '../cell/CarHeadCell';
+import {Gray_Color} from '../common/Common'
 
 
 type Props = {};
@@ -37,6 +38,7 @@ export default class CarPageApp extends Component<Props> {
       <View style={styles.cellViewStyle}>
         <TouchableOpacity>
           <CarHeadCell style={styles.headStyle}
+                       isSelectVisible={true}
                        selectHandle={()=>{item.selected=!item.selected}}
                        selected={item.selected}
                        shopName={item.shopName}
@@ -91,7 +93,7 @@ export default class CarPageApp extends Component<Props> {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#CED0CE',
+    backgroundColor: Gray_Color,
     ...ifIphoneX({
         marginTop: 152,
     }, {

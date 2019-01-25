@@ -17,6 +17,7 @@ const {width, height} = Dimensions.get('window');
 export default class CarHeadCell extends Component {
 
     static propTypes = {
+      isSelectVisible:PropTypes.bool,
       selected:PropTypes.bool,
       shopName: PropTypes.string,
       shopImage: PropTypes.string,
@@ -40,6 +41,7 @@ export default class CarHeadCell extends Component {
     }
 
     render() {
+      if(this.props.isSelectVisible){
         return (
           <View style={styles.container}>
           <TouchableOpacity onPress={this.hand}>
@@ -51,6 +53,16 @@ export default class CarHeadCell extends Component {
               <Image source={require('../../image/common/a.png')} style={styles.arrow}/>
           </View>
         );
+      }else {
+        return (
+          <View style={styles.container}>
+              <Image source={require('../../image/common/shop.png')} style={styles.shopImage}/>
+              <Text numberOfLines={1} style={styles.title} ellipsizeMode='tail'>{this.props.shopName}</Text>
+              <Image source={require('../../image/common/a.png')} style={styles.arrow}/>
+          </View>
+        );
+      }
+
     }
 }
 

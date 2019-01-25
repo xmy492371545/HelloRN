@@ -19,6 +19,7 @@ import HomePage from './app/home/Home';
 import CatePage from './app/cate/Cat';
 import CarPage from './app/car/Car';
 import MyPage from './app/my/My';
+import OrderPage from './app/my/Order';
 import ListPage from './app/home/List';
 import SearchPage from './app/home/Search';
 import DetailPage from './app/home/Detail';
@@ -39,7 +40,7 @@ const TabRoutes = {
   Cate: CatePage,
   Car: CarPage,
   My: MyPage,
-  HomeList:HomeList,
+  // HomeList:HomeList,
 }
 const TabRoutesConfig={
   defaultNavigationOptions: ({navigation}) => {
@@ -99,6 +100,7 @@ const NavStack = createStackNavigator({
   Detail:DetailPage,
   Web:WebViewPage,
   Comment:CommentsList,
+  Order:OrderPage,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

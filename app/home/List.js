@@ -25,22 +25,11 @@ export default class NextPage extends Component<Props> {
 
   constructor(props) {
           super(props);
+          let data=require('../../data/commonList.json');
           this.state = {
-              dataSource: [],
+              dataSource: data.list,
           };
-          this.fetchData = this.fetchData.bind(this);
       }
-
-      fetchData() {
-          fetch('http://guangdiu.com/api/gethots.php')
-              .then((response) => response.json())
-              .then((responseData) => {
-                  this.setState({
-                          dataSource: responseData.data
-                      }
-                  );
-              }).done();
-      };
 
       goToDetail(item){
         this.props.navigation.navigate('Detail',{title:item.title});
@@ -59,7 +48,6 @@ export default class NextPage extends Component<Props> {
       };
 
       componentDidMount() {
-          this.fetchData();
       };
 
       // Flat分割线

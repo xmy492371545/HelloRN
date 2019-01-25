@@ -35,6 +35,10 @@ export default class MyPageApp extends Component<Props> {
       })});
   }
 
+  goToOrder(){
+    this.props.navigation.navigate('Order',{title:'我的订单'})
+  }
+
   render() {
     return (
     <ImageBackground
@@ -46,6 +50,12 @@ export default class MyPageApp extends Component<Props> {
               <Image source={this.state.avatarSource} style={styles.uploadAvatar} />
             </TouchableOpacity>
           </View>
+          <TouchableOpacity onPress={() => this.goToOrder()}>
+            <View style={{flex:1,height:40,backgroundColor:'white',flexDirection:'row',alignItems:'center',borderRadius:10,marginLeft:10,marginRight:10,marginTop:10}}>
+              <Text style={{flex:1,marginLeft:10}}>我的订单</Text>
+              <Image source={require('../../image/common/a.png')} style={{resizeMode:'contain',marginRight:10,width:10,height:10}} />
+            </View>
+          </TouchableOpacity>
         </ScrollView>
     </ImageBackground>
     );

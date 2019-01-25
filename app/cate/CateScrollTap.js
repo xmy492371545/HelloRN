@@ -65,7 +65,12 @@ export default class scrollTap extends Component {
     }
 
     render() {
-
+      // let label = this.state.label
+      // return (
+      //   <ScrollView style={{flex:1}}>
+      //       <CateList nav={this.props.nav}/>
+      //   </ScrollView>
+      // );
         return (
           <View style={styles.container}>
             {this.renderScrollableTab()}

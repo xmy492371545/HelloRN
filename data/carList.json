@@ -5,6 +5,8 @@
       "selected":true,
       "shopName":"小星星小星星小星星店铺",
       "shopImage":"img1",
+      "number":"5",
+      "price":"347",
       "proList":[
         {
           "id":"11",
@@ -31,6 +33,8 @@
       "selected":false,
       "shopName":"东阿万佛湖我才能到家",
       "shopImage":"img2",
+      "number":"11",
+      "price":"1581",
       "proList":[
         {
           "id":"21",
@@ -75,6 +79,8 @@
       "selected":false,
       "shopName":"店铺三",
       "shopImage":"img3",
+      "number":"6",
+      "price":"2718",
       "proList":[
         {
           "id":"35",

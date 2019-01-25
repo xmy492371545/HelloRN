@@ -13,11 +13,11 @@ import {
     Alert
 } from 'react-native';
 import ScrollableTabView, {DefaultTabBar,ScrollableTabBar} from 'react-native-scrollable-tab-view';
-// import {PullView} from 'react-native-pull'
+import ProductButtonCell from '../cell/ProductButton';
 
 import {showImagePicker} from '../common/Camera'
-
 import {ifIphoneX} from '../common/AdapterPhone';
+
 import CateButtonCell from '../cell/CateButton';
 import BannerCell from './Banner';
 import HomeNav from './HomeNav';
@@ -30,17 +30,17 @@ const { width, height } = Dimensions.get('window');
 
 export default class HomePageApp extends Component {
 
-  static navigationOptions = {
-      header:null
-    }
+
 
     constructor(props) {
         super(props);
         let dataAry=require('../../data/cate.json');
         let cate=require('../../data/nineArea.json');
         let products=require('../../data/gridData.json');
+        let bottomPros=require('../../data/products.json');
 
         this.state = {
+            special:bottomPros.list,
             cate:cate.list,
             label: dataAry.list,
             gridDatas:products.list,
@@ -133,6 +133,30 @@ export default class HomePageApp extends Component {
       // })
     }
 
+    renderTwo(){
+        return (
+            <View style={{flex:1,backgroundColor:'white',marginLeft:10,marginRight:10}}>
+                <FlatList
+                    data={this.state.special}
+                    keyExtractor={(item, index) => index}
+                    renderItem={this.renderTwoItem}
+                    numColumns={2}
+                />
+            </View>
+        )
+    }
+    renderTwoItem = ({ item }) => {
+      return(
+        <ProductButtonCell
+            image={item.uri}
+            title={item.title}
+            id={item.id}
+            price={item.price}
+            isTwoOneLine={true}
+            handler={()=>this.goToDetail(item.title)}
+        />
+      )
+    }
     render() {
         return (
           <ImageBackground
@@ -149,6 +173,7 @@ export default class HomePageApp extends Component {
                 {this.renderActivity()}
                 {this.renderNineArea()}
                 {this.renderGridView()}
+                {this.renderTwo()}
               </ScrollView>
             </View>
           </ImageBackground>
@@ -206,6 +231,5 @@ const styles = StyleSheet.create({
         height: 200,
         alignItems: 'center',
         justifyContent:'center',
-        backgroundColor: 'red',
     },
 });
