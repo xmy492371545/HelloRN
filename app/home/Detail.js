@@ -180,7 +180,7 @@ export default class DetailPage extends Component<Props> {
         </ScrollView>
         <TouchableOpacity  style={styles.backButton} activeOpacity={1} onPress={()=>this.backAction()}>
         <View style={styles.backButton}>
-          <Image source={require('../../image/nav/back.png')} style={{flex:1,width:40,height:40}} />
+          <Image source={require('../../image/nav/back.png')} style={{width:20,height:20,resizeMode:'contain'}} />
         </View>
         </TouchableOpacity>
         </View>

@@ -9,10 +9,11 @@
 import React, {Component} from 'react';
 import {Button, StyleSheet, Text, ImageBackground, View, Alert, FlatList, Dimensions, TouchableOpacity} from 'react-native';
 import {ifIphoneX} from '../common/AdapterPhone';
-
-import CarListCell from '../cell/CarListCell';
-import CarHeadCell from '../cell/CarHeadCell';
 import {Gray_Color} from '../common/Common'
+
+import CarHeadCell from '../cell/CarHeadCell';
+import CarListCell from '../cell/CarListCell';
+
 
 
 type Props = {};
